@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\book;    
+use App\Models\favorite;
+use App\Models\view;    
 use Illuminate\Http\Request;
 
 class userController extends Controller
@@ -14,7 +17,11 @@ class userController extends Controller
      */
     public function index()
     {
-        //
+        $fictions = book::where('id_category', 1)->get();
+        $nonFictions = book::where('id_category', 2)->get();
+        $title = 'Home';
+
+        return view('Home.home', compact('fictions', 'nonFictions', 'title'));
     }
 
     /**
@@ -46,7 +53,7 @@ class userController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -77,7 +84,6 @@ class userController extends Controller
             User::where('id', $id)
                 ->update([
                     'location'  => $request->location,
-                    'favorite'  => $request->favorite,
                     'bio'       => $request->bio
                 ]);
 
@@ -97,4 +103,27 @@ class userController extends Controller
         //
     }
 
+    public function showe($id){
+        $book = book::where('id_books', $id)->first();
+        // dd($id);
+        $title= "Book";
+
+        $cek = view::where('id_book', $id)->where('id_user', Auth()->User()->id)->get();
+
+        if($cek->count() == 0){
+            view::create([
+                'id_book'   => $id,
+                'id_user'   => Auth()->User()->id
+            ]);
+        }
+        
+        $viewer = view::where('id_book', $id)->get();
+        $recomendations = book::orderBy('created_at', 'DESC')->limit(4)->get();
+
+        $favorite = favorite::where('id_user', Auth()->User()->id)->where('id_book', $id)->first();
+
+
+        return view('Home.book', compact('book', 'title', 'viewer', 'recomendations', 'favorite'));
+
+    }
 }

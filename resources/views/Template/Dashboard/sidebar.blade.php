@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="{{ asset('/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Perpustakaan</span>
+      <span class="brand-text font-weight-light">Perpustakaan Kukuh</span>
     </a>
 
     <!-- Sidebar -->
@@ -53,6 +53,12 @@
                 <a href="/dashboard" class="nav-link {{ $title !== 'Dashboard' ? 'none' : 'active' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/students" class="nav-link {{ $title !== 'Students' ? 'none' : 'active' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Students</p>
                 </a>
               </li>
               <li class="nav-item">

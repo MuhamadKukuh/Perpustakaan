@@ -24,7 +24,6 @@ return new class extends Migration
             $table->foreignId('id_kelas');
             $table->foreignId('id_gender');
             $table->string('location')->nullable();
-            $table->string('favorite')->nullable();
             $table->string('bio')->nullable();
             $table->integer('status')->nullable();
             $table->rememberToken();

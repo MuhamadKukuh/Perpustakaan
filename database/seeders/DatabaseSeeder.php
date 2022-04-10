@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -64,42 +65,50 @@ class DatabaseSeeder extends Seeder
             'id_role'   => '2'
         ]);
 
-        book::create([
-            'bookTitle' => 'Wow',
-            'id_category' => 1,
-            'id_kelas'    => 1,
-            'id_bookshelf'=> 3,
-            'bookTotal'   => 10,
-            'tax'         => 2000,
-            'fine'        => 100000   
-        ]);
+        // for($i = 1; $i <= 20; $i++){
+        //     book::create([
+        //         'bookTitle' => 'Wow',
+        //         'id_category' => 1,
+        //         'id_kelas'    => 1,
+        //         'genre'    => "Romance, School, Comedy",
+        //         'id_bookshelf'=> 3,
+        //         'bookTotal'   => 10,
+        //         'tax'         => 2000,
+        //         'bookImage'   => '20220225142827.png',
+        //         'fine'        => 100000   
+        //     ]);
+        // }
 
-        book::create([
-            'bookTitle' => 'Wew',
-            'id_category' => 1,
-            'id_kelas'    => 3,
-            'id_bookshelf'=> 1,
-            'bookTotal'   => 10,
-            'tax'         => 2000,
-            'fine'        => 100000   
-        ]);
+        // book::create([
+        //     'bookTitle' => 'Wew',
+        //     'id_category' => 1,
+        //     'id_kelas'    => 3,
+        //     'id_bookshelf'=> 1,
+        //     'genre'    => "Romance, School, Comedy",
+        //     'bookTotal'   => 10,
+        //     'bookImage'   => '20220225142827.png',
+        //     'tax'         => 2000,
+        //     'fine'        => 100000   
+        // ]);
 
-        book::create([
-            'bookTitle' => 'Waw',
-            'id_category' => 1,
-            'id_kelas'    => 2,
-            'id_bookshelf'=> 2,
-            'bookTotal'   => 10,
-            'tax'         => 2000,
-            'fine'        => 100000   
+        // book::create([
+        //     'bookTitle' => 'Waw',
+        //     'id_category' => 2,
+        //     'id_kelas'    => 2,
+        //     'id_bookshelf'=> 2,
+        //     'genre'    => "Slice of Life, Comedy",
+        //     'bookTotal'   => 10,
+        //     'tax'         => 2000,
+        //     'bookImage'   => '20220225142835.png',
+        //     'fine'        => 100000   
+        // ]);
+
+        category::create([
+            'category'  => 'Fiction'
         ]);
 
         category::create([
-            'category'  => 'Education'
-        ]);
-
-        category::create([
-            'category'  => 'For Fun'
+            'category'  => 'Non Fiction'
         ]);
 
         bookshelf::create([
@@ -113,5 +122,6 @@ class DatabaseSeeder extends Seeder
         bookshelf::create([
             'nameBookshelf'  => 'Rak C'
         ]);
+
     }
 }

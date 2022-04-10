@@ -71,7 +71,9 @@
             <strong><i class="far fa-file-alt mr-1"></i> Books Favorite</strong>
 
             <p class="text-muted">
-                {{ $siswa->favorite }}
+              @foreach ($favorite as $fav)
+                  <a href="/book/{{ $fav->id_book }}" class="text-white">{{ $fav->book->bookTitle }}</a>, 
+              @endforeach
             </p>
           </div>
           <!-- /.card-body -->
@@ -235,12 +237,6 @@
               <div class="tab-pane" id="settings">
                 <form class="form-horizontal" action="/update-profile/{{ $siswa->id }}" method="post">
                 @csrf
-                  <div class="form-group row">
-                    <label for="inputExperience" class="col-sm-2 col-form-label">Favorite Books</label>
-                    <div class="col-sm-10">
-                      <textarea class="form-control" id="inputExperience" placeholder="Favorite Books" name="favorite">{{ $siswa->favorite }}</textarea>
-                    </div>
-                  </div>
                   <div class="form-group row">
                     <label for="inputExperience" class="col-sm-2 col-form-label">Bio</label>
                     <div class="col-sm-10">

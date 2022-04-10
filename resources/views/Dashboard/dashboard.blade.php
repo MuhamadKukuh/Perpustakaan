@@ -53,10 +53,10 @@
         <div class="info-box mb-3">
           <span class="info-box-icon bg-warning elevation-1"><i class="fa-solid fa-envelope"></i></span>
 
-          <div class="info-box-content">
+          <a href="/message" class="info-box-content text-white">
             <span class="info-box-text">New Message's</span>
-            <span class="info-box-number">2,000</span>
-          </div>
+            <span class="info-box-number">{{ $message->count() }}</span>
+          </a>
           <!-- /.info-box-content -->
         </div>
         <!-- /.info-box -->
@@ -64,82 +64,6 @@
     </div>
     <!-- /.row -->
 
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="card-title">Monthly Recap Report</h5>
-
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-              </button>
-              <div class="btn-group">
-                <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
-                  <i class="fas fa-wrench"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right" role="menu">
-                  <a href="#" class="dropdown-item">Action</a>
-                  <a href="#" class="dropdown-item">Another action</a>
-                  <a href="#" class="dropdown-item">Something else here</a>
-                  <a class="dropdown-divider"></a>
-                  <a href="#" class="dropdown-item">Separated link</a>
-                </div>
-              </div>
-              <button type="button" class="btn btn-tool" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
-          </div>
-          <!-- /.card-header -->
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-8">
-                <p class="text-center">
-                  <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                </p>
-
-                <div class="chart">
-                  <!-- Sales Chart Canvas -->
-                  <canvas id="salesChart" height="180" style="height: 180px;"></canvas>
-                </div>
-                <!-- /.chart-responsive -->
-              </div>
-              <!-- /.col -->
-              <div class="col-md-4">
-                <p class="text-center">
-                  <strong>Goal Completion</strong>
-                </p>
-
-                <div class="progress-group">
-                  Add Products to Cart
-                  <span class="float-right"><b>160</b>/200</span>
-                  <div class="progress progress-sm">
-                    <div class="progress-bar bg-primary" style="width: 80%"></div>
-                  </div>
-                </div>
-                <!-- /.progress-group -->
-
-                <div class="progress-group">
-                  Complete Purchase
-                  <span class="float-right"><b>310</b>/400</span>
-                  <div class="progress progress-sm">
-                    <div class="progress-bar bg-danger" style="width: 75%"></div>
-                  </div>
-                </div>
-
-              </div>
-              <!-- /.col -->
-            </div>
-            <!-- /.row -->
-          </div>
-          <!-- ./card-body -->
-          <!-- /.card-footer -->
-        </div>
-        <!-- /.card -->
-      </div>
-      <!-- /.col -->
-    </div>  
     <!-- /.row -->
 
     <!-- Main row -->
@@ -166,69 +90,27 @@
                 <table class="table m-0">
                   <thead>
                   <tr>
-                    <th>Order ID</th>
+                    <th>User</th>
                     <th>Item</th>
                     <th>Status</th>
-                    <th>Popularity</th>
+                    <th>Deadline</th>
                   </tr>
                   </thead>
                   <tbody>
+                  @foreach ($borrowed as $borrow)
                   <tr>
-                    <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                    <td>Call of Duty IV</td>
-                    <td><span class="badge badge-success">Shipped</span></td>
+                    <td><a href="pages/examples/invoice.html">{{ $borrow->user->username }}</a></td>
+                    <td><a href="" class="text-white">{{ $borrow->book->bookTitle }}</a></td>
+                    @if ($borrow->status == 0)
+                    <td><span class="badge badge-primary">Processing</span></td>
+                    @else
+                    <td><span class="badge badge-info">Borrowed</span></td>
+                    @endif
                     <td>
-                      <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
+                      <div class="sparkbar" data-color="#00a65a" data-height="20">{{ $borrow->deadline }}</div>
                     </td>
                   </tr>
-                  <tr>
-                    <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                    <td>Samsung Smart TV</td>
-                    <td><span class="badge badge-warning">Pending</span></td>
-                    <td>
-                      <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                    <td>iPhone 6 Plus</td>
-                    <td><span class="badge badge-danger">Delivered</span></td>
-                    <td>
-                      <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                    <td>Samsung Smart TV</td>
-                    <td><span class="badge badge-info">Processing</span></td>
-                    <td>
-                      <div class="sparkbar" data-color="#00c0ef" data-height="20">90,80,-90,70,-61,83,63</div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                    <td>Samsung Smart TV</td>
-                    <td><span class="badge badge-warning">Pending</span></td>
-                    <td>
-                      <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                    <td>iPhone 6 Plus</td>
-                    <td><span class="badge badge-danger">Delivered</span></td>
-                    <td>
-                      <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                    <td>Call of Duty IV</td>
-                    <td><span class="badge badge-success">Shipped</span></td>
-                    <td>
-                      <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-                    </td>
-                  </tr>
+                  @endforeach
                   </tbody>
                 </table>
               </div>
@@ -236,8 +118,8 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer clearfix">
-              <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
-              <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
+              {{-- <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a> --}}
+              <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">See More..</a>
             </div>
             <!-- /.card-footer -->
         </div>
@@ -279,7 +161,7 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer text-center">
-              <a href="javascript:">View All Users</a>
+              <a href="/students">View All Users</a>
             </div>
             <!-- /.card-footer -->
         </div>

@@ -8,5 +8,6 @@
   <link rel="stylesheet" href="{{ asset('/fontawesome-free-6.1.0-web/fontawesome-free-6.1.0-web/css/all.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+  
   <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
   {{-- <link rel="stylesheet" href="{{ asset('/bootstrap/dist/css/bootstrap.min.css') }}"> --}}

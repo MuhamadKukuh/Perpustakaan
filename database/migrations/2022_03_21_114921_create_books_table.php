@@ -16,11 +16,13 @@ return new class extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id('id_books');
             $table->foreignId('id_category');
+            $table->string('genre')->nullable();
             $table->foreignId('id_kelas');
             $table->string('bookTitle');
             $table->integer('bookTotal');
-            $table->integer('tax');
-            $table->integer('fine');
+            $table->string('bookImage');
+            $table->integer('tax')->nullable();
+            $table->integer('fine')->nullable();
             $table->foreignId('id_bookshelf');
             $table->timestamps();
         });
