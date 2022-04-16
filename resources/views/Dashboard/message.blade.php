@@ -1,5 +1,5 @@
-@extends('Template.Books.main')
-@section('booksContent')
+@extends('Template.Master.main')
+@section('mainContent')
   <div class="card">
     <div class="card-header">
       <h3 class="card-title">Message | <a href="/destroyAll" class="text-decoration-none text-white" style="font-size: 10px">clear all</a></h3>
@@ -19,6 +19,7 @@
           <th>No</th>
           <th>User</th>
           <th>Book Borrow</th>
+          <th>Total Borrow</th>
           <th>Deadline</th>
           <th>Confirmation</th>
         </tr>
@@ -31,6 +32,7 @@
               {{ $confirm->user->username }}
           </td>
           <td>{{ $confirm->book->bookTitle }}</td>
+          <td>{{ $confirm->total }}</td>
           <td>{{ $confirm->deadline }}</td>
           <td class="text-center">
               <a href="/confirm/{{ $confirm->id_transaction }}" class="btn btn-primary">Confirm</a>

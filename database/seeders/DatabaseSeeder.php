@@ -65,19 +65,33 @@ class DatabaseSeeder extends Seeder
             'id_role'   => '2'
         ]);
 
-        // for($i = 1; $i <= 20; $i++){
-        //     book::create([
-        //         'bookTitle' => 'Wow',
-        //         'id_category' => 1,
-        //         'id_kelas'    => 1,
-        //         'genre'    => "Romance, School, Comedy",
-        //         'id_bookshelf'=> 3,
-        //         'bookTotal'   => 10,
-        //         'tax'         => 2000,
-        //         'bookImage'   => '20220225142827.png',
-        //         'fine'        => 100000   
-        //     ]);
-        // }
+        for($i = 1; $i <= 10; $i++){
+            book::create([
+                'bookTitle' => 'Kamisato Art',
+                'id_category' => 1,
+                'id_kelas'    => 0,
+                'genre'    => "Slice Of Life, Comedy",
+                'id_bookshelf'=> 3,
+                'bookTotal'   => 10,
+                'tax'         => 2000,
+                'bookImage'   => 'gambar.jpg',
+                'fine'        => 100000   
+            ]);
+        }
+
+        for($i = 1; $i <= 10; $i++){
+            book::create([
+                'bookTitle' => 'No game no Life',
+                'id_category' => 2,
+                'id_kelas'    => 1,
+                'genre'    => "Action, Romance, Comedy, Drama",
+                'id_bookshelf'=> 3,
+                'bookTotal'   => 10,
+                'tax'         => 2000,
+                'bookImage'   => '1649856044.png',
+                'fine'        => 100000   
+            ]);
+        }
 
         // book::create([
         //     'bookTitle' => 'Wew',

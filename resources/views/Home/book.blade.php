@@ -1,9 +1,21 @@
-@extends('Template.Profile.main')
-@section('profileContent')
+@extends('Template.Master.main')
+@section('mainContent')
 <!-- Default box -->
 <div class="card card-solid">
-    
-    <div class="card-body">
+  <div class="card-body">
+      @if (session()->has('error'))
+      <div class="alert alert-danger alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <h5><i class="icon fas fa-ban"></i> Failed!</h5>
+          {{ session('error') }}
+        </div>
+      @elseif(session()->has('success'))
+      <div class="alert alert-success alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <h5><i class="icon fas fa-check"></i> Success!</h5>
+          {{ session('success') }}
+      </div>
+      @endif
       <div class="row">
         <div class="col-12 col-sm-6">
           <h3 class="d-inline-block d-sm-none">{{ $book->bookTitle }}</h3>

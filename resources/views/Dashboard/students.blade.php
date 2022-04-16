@@ -1,5 +1,5 @@
-@extends('Template.Books.main')
-@section('booksContent')
+@extends('Template.Master.main')
+@section('mainContent')
 <div class="card">
     <div class="card-header">
       <h3 class="card-title">DataTable with default features</h3>

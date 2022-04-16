@@ -17,8 +17,8 @@ class userController extends Controller
      */
     public function index()
     {
-        $fictions = book::where('id_category', 1)->get();
-        $nonFictions = book::where('id_category', 2)->get();
+        $fictions = book::where('id_category', 1)->orderBy('updated_at', 'DESC')->get();
+        $nonFictions = book::where('id_category', 2)->orderBy('updated_at', 'DESC')->get();
         $title = 'Home';
 
         return view('Home.home', compact('fictions', 'nonFictions', 'title'));

@@ -1,5 +1,5 @@
-@extends('Template.Dashboard.main')
-@section('dashboardContent')
+@extends('Template.Master.main')
+@section('mainContent')
 <div class="container-fluid">
   <h2 class="text-center display-4">Search</h2>
   <div class="row">
@@ -76,12 +76,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 <script>
   $(document).ready(function(){
-$('.searchbox-input').on("keyup", function() {
-  var value = $(this).val().toLowerCase();
-  $(".result").filter(function() {
-    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  $('.searchbox-input').on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $(".result").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
   });
-});
-});
+  });
 </script>
 @endsection

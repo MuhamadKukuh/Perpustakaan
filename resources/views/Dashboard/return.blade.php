@@ -17,27 +17,48 @@
         <thead>
         <tr>
           <th>No</th>
-          <th>Books</th>
-          <th>Categories</th>
-          <th>Bookshelves</th>
+          <th>Borrower</th>
+          <th>NIS</th>
+          <th>totalBorrow</th>
+          <th>Book Borrowed</th>
+          <th>Deadline</th>
+          <th>Tax</th>
+          <th>Status</th>
           <th>Action</th>
         </tr>
         </thead>
         <tbody>
-        @foreach ($books as $book)
+        @foreach ($data as $d)
+        @if ($d->status == 0)
+            @continue
+        @endif
         <tr>
           <td>{{ $no++ }}</td>
           <td>
-            <a href="/book/{{ $book->id_books }}" class="text-white text-decoration-none">
-              {{ $book->bookTitle }}
+            <a href="/profile/{{ $d->user->username }}" class="text-white text-decoration-none">
+              {{ $d->user->username }}
             </a>
           </td>
-          <td>{{ $book->category }}</td>
-          <td>{{ $book->nameBookshelf }}</td>
+          <td>
+            {{ $d->user->nisFormat($d->user->nis) }}
+          </td>
+          <td>{{ $d->total }}</td>
+          <td>{{ $d->book->bookTitle }}</td>
+          <td>{{ $d->deadline }}</td>
+          <td>Rp {{ $d->countTax($d->book->tax, $d->deadline, $d->total) }}</td>
+          <td>
+              @if ($d->status == 1)
+                  Borrowed
+              @else
+                  Returned
+              @endif
+          </td>
           <td class="text-center">
-              <a href="/editbook/{{ $book->id_books }}" class="text-decoration-none text-white"><i class="fa-solid fa-pen-to-square"></i></a>
-              |
-              <a href="/delete/{{ $book->id_books }}" class="text-decoration-none text-white"><i class="fa-solid fa-delete-left"></i></a>
+            @if ($d->status == 1)
+                <a href="/returnBook/{{ $d->id_transaction }}" class="btn btn-primary">Return</a>
+            @else
+                Returned
+            @endif
           </td>
         </tr>
         @endforeach

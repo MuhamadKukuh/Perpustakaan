@@ -20,4 +20,22 @@ class transaction extends Model
     public function book(){
         return $this->belongsTo(book::class, 'id_book');
     }
+
+    public function countTax($tax, $deadline, $totalBook){
+        $tanggal = strtotime(date('Y-m-d'));
+        $deadline2 = strtotime($deadline);
+
+        $totalDeadline = $tanggal - $deadline2;
+
+        $hari = $totalDeadline / 60 / 60 / 24;
+
+        if($totalDeadline < 0){
+            return '-';
+        }else{
+            $taxTotal = $hari * $tax * $totalBook;
+
+            
+            return number_format($taxTotal, 0, '', '. ');
+        }
+    }
 }

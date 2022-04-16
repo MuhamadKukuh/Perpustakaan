@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\book;
 use App\Models\User;
+use App\Models\history;
 use App\Models\favorite;
 use App\Models\transaction;
 use Illuminate\Http\Request;
@@ -23,7 +25,10 @@ class adminController extends Controller
             'onlineUsers'   => User::where('id_role', 2)->where('status', 1)->orderBy('updated_at', 'DESC')->limit(10)->get(),
             'title'         => 'Dashboard',
             'message'       => transaction::where('status', 0)->get(),
-            'borrowed'      => transaction::orderBy('updated_at', 'DESC')->get()
+            'borrowed'      => transaction::orderBy('updated_at', 'DESC')->get(),
+            'students'      => User::Where('id_role', 2)->get(),
+            'book'          => book::all(),
+            'return'        => transaction::where('status', 1)->get()
         ]);
     }
 
@@ -99,10 +104,13 @@ class adminController extends Controller
         $siswa = User::where('id', $user->id)->first();
         $title  = 'Profile';
         $favorite = favorite::where('id_user', $user->id)->limit(5)->get();
-
-        // @dd($favorite);
+        // $date = date('Y-m-d');
+        $histories = history::where('id_user', $user->id)->orderBy('created_at', 'DESC')->get();
+        $activities = history::where('id_user', $user->id)->where('status', 0)->get();
+        $borrow = transaction::where('id_user', $user->id)->where('status', 1)->get();
+        // @dd($histories);
         
-        return view('profile', compact('siswa', 'title', 'favorite'));
+        return view('profile', compact('siswa', 'title', 'favorite', 'histories', 'activities', 'borrow'));
     }
 
     public function studentslist(){
@@ -122,11 +130,11 @@ class adminController extends Controller
 
     public function message(){
         $title = 'Message';
-        $confirmation = transaction::where('status', 0)->get();
-        $confirmationReturn = transaction::where('status', 1)->get();
+        $confirmation = transaction::where('status', 0)->orderBy('created_at', 'DESC')->get();
+        // $confirmationReturn = transaction::where('status', 1)->get();
         $no = 1;
 
-        return view('Dashboard.message', compact('title', 'no', 'confirmation', 'confirmationReturn'));
+        return view('Dashboard.message', compact('title', 'no', 'confirmation'));
     }
 
     public function confirm($id){
@@ -145,11 +153,29 @@ class adminController extends Controller
             ]);
         }
 
+        history::create([
+            'id_user' => $core->id_user,
+            'id_books' => $core->id_book,
+            'totalborrw' => $core->total,
+            'status'  => 1
+        ]);
+
         return back()->with('succes', 'Confirmation Succes');
     }
 
     public function deleteC($id){
+        $data = transaction::where('id_transaction', $id)->first();
+
+        history::create([
+            'id_user' => $data->id_user,
+            'id_books'=> $data->id_book,
+            'totalborrw'   => $data->total,
+            'status'    => 5
+        ]);
+
+
         transaction::destroy($id);
+
         return back()->with('succes', 'Confirmation has been deleted');
     }
 
@@ -157,5 +183,30 @@ class adminController extends Controller
         transaction::where('status', 0)->delete();
 
         return back()->with('success', 'All transaction has been deleted');
+    }
+
+    public function returnBook(){
+        $title = "Return";
+        $data  = transaction::orderBy('created_at', 'DESC')->get();
+        $no    = 1;
+
+        return view('Dashboard.return', compact('title', 'data', 'no'));
+    }
+
+    public function returnBook1($id){
+        $data = transaction::Where('id_transaction', $id)->first();
+
+        transaction::where('id_transaction', $id)
+                   ->update([
+                       'status'  => 2
+                   ]);
+        history::create([
+            'id_books' => $data->id_book,
+            'id_user' => $data->id_user,
+            'status'  => 2,
+            'totalborrw' => $data->total
+        ]);
+
+        return redirect('/return')->with('success', 'Success Returning Book');
     }
 }

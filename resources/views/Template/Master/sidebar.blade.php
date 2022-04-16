@@ -40,6 +40,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+          @if (Auth()->User()->id_role === 1)
           <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -73,43 +74,41 @@
                   <p>Categories & Bookshelf</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="/return" class="nav-link {{ $title !== 'Return' ? 'none' : 'active' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Returning Book</p>
+                </a>
+              </li>
             </ul>
           </li>
-          <li class="nav-header">EXAMPLES</li>
-          <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
-              <i class="nav-icon far fa-calendar-alt"></i>
+          @else
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Calendar
-                <span class="badge badge-info right">2</span>
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon far fa-envelope"></i>
-              <span class="badge badge-info right">2</span>
-              <p>
-                Massage
-                <i class="fas fa-angle-left right"></i>
+                Book
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/mailbox/mailbox.html" class="nav-link">
+                <a href="/home" class="nav-link {{ $title !== 'Home' ? 'none' : 'active' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Books borrower
-                    <span class="badge badge-info right">2</span>
-                  </p>
+                  <p>Books</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/mailbox/compose.html" class="nav-link">
+                <a href="/profile/{{ Auth()->User()->username }}" class="nav-link {{ $title !== 'Profile' ? 'none' : 'active' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Books return</p>
+                  <p>Profile</p>
                 </a>
               </li>
             </ul>
+          </li>
+          @endif
+          <li class="nav-header"></li>
+          <li class="nav-item">
           </li>
           <li class="nav-item">
             <a href="/logout" class="nav-link">
@@ -124,4 +123,4 @@
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
-  </aside>
+</aside>

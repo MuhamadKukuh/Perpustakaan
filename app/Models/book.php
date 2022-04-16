@@ -28,4 +28,12 @@ class book extends Model
         // $num = (int)$number;
         return number_format($number, 0, '.', '.');
     }
+
+    public function history(){
+        return $this->belongsTo(history::class, 'id_books');
+    }
+
+    public function kelas(){
+        return $this->belongsTo(kelas::class, 'id_kelas');
+    }
 }

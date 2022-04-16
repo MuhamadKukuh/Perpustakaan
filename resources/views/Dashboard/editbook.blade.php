@@ -1,5 +1,5 @@
-@extends('Template.Profile.main')
-@section('profileContent')
+@extends('Template.Master.main')
+@section('mainContent')
     <div class="container-fluid pt-3">
         <div class="card card-primary">
             <div class="card-header">
@@ -7,7 +7,8 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form>
+            <form action="/updatebook/{{ $books->id_books }}" method="POST" enctype="multipart/form-data">
+              @csrf
               <div class="card-body">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Book Title</label>
@@ -17,24 +18,31 @@
                     <div class="col-4">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Category</label>
-                            <select name="" class="form-control" id="">
-                                <option value=""></option>
+                            <select name="category" class="form-control" id="">
+                              @foreach ($category as $cat)
+                              <option value="{{ $cat->id_category }}">{{ $cat->category }}</option>
+                              @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Bookshelf</label>
-                            <select name="" class="form-control" id="">
-                                <option value=""></option>
+                            <select name="bookshelf" class="form-control" id="">
+                                @foreach ($bookshelf as $bs)
+                                <option value="{{ $bs->id_bookshelf }}">{{ $bs->nameBookshelf }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Recomendation For?</label>
-                            <select name="" class="form-control" id="">
-                                <option value=""></option>
+                            <select name="try" class="form-control" id="">
+                              <option value="0">Free For all</option>
+                              @foreach ($kelas as $recom)
+                              <option value="{{ $recom->id_kelas }}">{{ $recom->kelas }}</option>
+                              @endforeach
                             </select>
                         </div>
                     </div>
@@ -63,17 +71,10 @@
                   <label for="exampleInputFile">Book Image</label>
                   <div class="input-group">
                     <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="exampleInputFile">
-                      <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                    </div>
-                    <div class="input-group-append">
-                      <span class="input-group-text">Upload</span>
+                      <input type="file" name="image" class="" id="exampleInputFile">
+                      {{-- <label class="custom-file-label" for="exampleInputFile"></label> --}}
                     </div>
                   </div>
-                </div>
-                <div class="form-check">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                  <label class="form-check-label" for="exampleCheck1">Check me out</label>
                 </div>
               </div>
               <!-- /.card-body -->

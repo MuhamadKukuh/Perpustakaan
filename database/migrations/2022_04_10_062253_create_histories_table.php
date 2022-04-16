@@ -14,7 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('histories', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_history');
+            $table->foreignId('id_user');
+            $table->foreignId('id_books');
+            $table->integer('totalborrw');
+            $table->integer('status');
             $table->timestamps();
         });
     }

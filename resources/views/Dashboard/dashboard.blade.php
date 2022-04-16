@@ -1,5 +1,5 @@
-@extends('Template.Dashboard.main')
-@section('dashboardContent')
+@extends('Template.Master.main')
+@section('mainContent')
 <div class="container-fluid">
     <!-- Info boxes -->
     <div class="row">
@@ -7,13 +7,12 @@
         <div class="info-box">
           <span class="info-box-icon bg-info elevation-1"><i class="fa-solid fa-user-group"></i></span>
 
-          <div class="info-box-content">
-            <span class="info-box-text">Student's</span>
-            <span class="info-box-number">
-              10
-              <small>%</small>
+          <a href='/students' class="info-box-content" class="text-decoration-none text-white">
+            <span class="info-box-text text-white">Student's</span>
+            <span class="info-box-number text-white">
+              {{ $students->count() }}
             </span>
-          </div>
+          </a>
           <!-- /.info-box-content -->
         </div>
         <!-- /.info-box -->
@@ -23,10 +22,10 @@
         <div class="info-box mb-3">
           <span class="info-box-icon bg-danger elevation-1"><i class="fa-solid fa-book"></i></span>
 
-          <div class="info-box-content">
-            <span class="info-box-text">Book's</span>
-            <span class="info-box-number">41,410</span>
-          </div>
+          <a href="/books" class="info-box-content">
+            <span class="info-box-text text-white">Book's</span>
+            <span class="info-box-number text-white">{{ $book->count() }}</span>
+          </a>
           <!-- /.info-box-content -->
         </div>
         <!-- /.info-box -->
@@ -41,8 +40,8 @@
           <span class="info-box-icon bg-success elevation-1"><i class="fa-solid fa-swatchbook"></i></i></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">Bookshelf's & Categorie's</span>
-            <span class="info-box-number">760</span>
+            <span class="info-box-text">Returning Book</span>
+            <span class="info-box-number">{{ $return->count() }}</span>
           </div>
           <!-- /.info-box-content -->
         </div>
@@ -98,6 +97,9 @@
                   </thead>
                   <tbody>
                   @foreach ($borrowed as $borrow)
+                  @if ($borrow->status == 2)
+                      @continue
+                  @endif
                   <tr>
                     <td><a href="pages/examples/invoice.html">{{ $borrow->user->username }}</a></td>
                     <td><a href="" class="text-white">{{ $borrow->book->bookTitle }}</a></td>
@@ -119,7 +121,7 @@
             <!-- /.card-body -->
             <div class="card-footer clearfix">
               {{-- <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a> --}}
-              <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">See More..</a>
+              <a href="javascri" class="btn btn-sm btn-secondary float-right">See More..</a>
             </div>
             <!-- /.card-footer -->
         </div>

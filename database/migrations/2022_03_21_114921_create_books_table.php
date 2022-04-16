@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('id_kelas');
             $table->string('bookTitle');
             $table->integer('bookTotal');
-            $table->string('bookImage');
+            $table->string('bookImage')->nullable();
             $table->integer('tax')->nullable();
             $table->integer('fine')->nullable();
             $table->foreignId('id_bookshelf');
