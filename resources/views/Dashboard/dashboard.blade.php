@@ -101,8 +101,8 @@
                       @continue
                   @endif
                   <tr>
-                    <td><a href="pages/examples/invoice.html">{{ $borrow->user->username }}</a></td>
-                    <td><a href="" class="text-white">{{ $borrow->book->bookTitle }}</a></td>
+                    <td><a href="/profile/{{ $borrow->user->username }}">{{ $borrow->user->username }}</a></td>
+                    <td><a href="/book/{{ $borrow->book->id_books }}" class="text-white">{{ $borrow->book->bookTitle }}</a></td>
                     @if ($borrow->status == 0)
                     <td><span class="badge badge-primary">Processing</span></td>
                     @else

@@ -44,15 +44,19 @@
           </td>
           <td>{{ $d->total }}</td>
           <td>{{ $d->book->bookTitle }}</td>
+          @if ($d->status == 1)
           <td>{{ $d->deadline }}</td>
           <td>Rp {{ $d->countTax($d->book->tax, $d->deadline, $d->total) }}</td>
           <td>
-              @if ($d->status == 1)
-                  Borrowed
-              @else
-                  Returned
-              @endif
+            Borrowed
           </td>
+          @else
+          <td>-</td>
+          <td>-</td>
+          <td>
+            Returned
+          </td>
+          @endif
           <td class="text-center">
             @if ($d->status == 1)
                 <a href="/returnBook/{{ $d->id_transaction }}" class="btn btn-primary">Return</a>

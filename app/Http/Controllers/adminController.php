@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use App\Models\book;
 use App\Models\User;
 use App\Models\history;
 use App\Models\favorite;
+use App\Models\softDelete;
 use App\Models\transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class adminController extends Controller
 {
@@ -166,6 +167,14 @@ class adminController extends Controller
     public function deleteC($id){
         $data = transaction::where('id_transaction', $id)->first();
 
+        softDelete::create([
+            'id_user'   => $data->id_user,
+            'id_book'   => $data->id_book,
+            'total'     => $data->total,
+            'deadline'  => $data->deadline,
+            'status'    => $data->status
+        ]);
+
         history::create([
             'id_user' => $data->id_user,
             'id_books'=> $data->id_book,
@@ -195,11 +204,20 @@ class adminController extends Controller
 
     public function returnBook1($id){
         $data = transaction::Where('id_transaction', $id)->first();
+        $dataBook = book::where('id_books', $data->id_book)->first();
+
+        $total = $dataBook->bookTotal + $data->total;
 
         transaction::where('id_transaction', $id)
                    ->update([
                        'status'  => 2
                    ]);
+
+        book::where('id_books', $data->id_book)
+            ->update([
+                'bookTotal' => $total
+            ]);
+
         history::create([
             'id_books' => $data->id_book,
             'id_user' => $data->id_user,

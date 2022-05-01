@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\authController;
-use App\Http\Controllers\adminController;
-use App\Http\Controllers\userController;
-use App\Http\Controllers\booksController;
-use Illuminate\Support\Facades\Route;
 use App\Models\book;
+use App\Models\User;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\authController;
+use App\Http\Controllers\userController;
+use App\Http\Controllers\adminController;
+use App\Http\Controllers\booksController;
 
 /*
 |--------------------------------------------------------------------------

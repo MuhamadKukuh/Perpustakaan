@@ -29,7 +29,7 @@ class transaction extends Model
 
         $hari = $totalDeadline / 60 / 60 / 24;
 
-        if($totalDeadline < 0){
+        if($totalDeadline <= 0){
             return '-';
         }else{
             $taxTotal = $hari * $tax * $totalBook;
