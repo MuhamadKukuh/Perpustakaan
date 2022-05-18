@@ -173,6 +173,10 @@ class booksController extends Controller
      */
     public function destroy($id)
     {
+        transaction::where('id_book', $id)->delete();
+        history::where('id_books', $id)->delete();
+        // @dd($id, history::all());
+        favorite::where('id_book', $id)->delete();
         book::destroy('id_books', $id);
 
         return redirect('/books')->with('success', 'Success deleting book');

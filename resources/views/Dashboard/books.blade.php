@@ -2,7 +2,7 @@
 @section('mainContent')
 <div class="card">
     <div class="card-header">
-      <h3 class="card-title">DataTable with default features | <a href="/addbook" class="text-decoration-none text-white" style="font-size: 10px">Add Book</a></h3>
+      <h3 class="card-title">Books Data | <a href="/addbook" class="text-decoration-none text-white" style="font-size: 10px">Add Book</a></h3>
     </div>
     @if (session()->has('success'))
     <div class="alert alert-success alert-dismissible">
@@ -38,7 +38,6 @@
               <a href="/editbook/{{ $book->id_books }}" class="text-decoration-none text-white"><i class="fa-solid fa-pen-to-square"></i></a>
               |
               <a href="/delete/{{ $book->id_books }}" class="text-decoration-none text-white"><i class="fa-solid fa-delete-left"></i></a>
-              <button></button>
           </td>
         </tr>
         @endforeach

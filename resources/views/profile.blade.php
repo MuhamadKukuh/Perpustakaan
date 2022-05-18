@@ -160,8 +160,9 @@
                     <div class="timeline-item">
                       <span class="time"><i class="far fa-clock"></i> {{ $history->created_at->diffForHumans() }}</span>
 
-
+                    
                      @if ($history->status == 1)
+                     
                      <h3 class="timeline-header bg-success"><a href="#">Admin</a> sent you an email</h3>
                      <div class="timeline-body">
                        Succes, Admin acc for borrow book <a href="/book/{{ $history->id_books }}">{{ $history->books->bookTitle }}</a> {{ $history->total }}

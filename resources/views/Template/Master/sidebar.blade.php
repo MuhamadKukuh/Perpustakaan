@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="{{ asset('/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Just JustPerpus</span>
+      <span class="brand-text font-weight-light">JustPerpus</span>
     </a>
 
     <!-- Sidebar -->
@@ -66,12 +66,6 @@
                 <a href="{{ url('/books') }}" class="nav-link {{ $title !== 'Books' ? 'none' : 'active' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Books</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index3.html" class="nav-link {{ $title !== 'Categories' ? 'none' : 'active' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Categories & Bookshelf</p>
                 </a>
               </li>
               <li class="nav-item">

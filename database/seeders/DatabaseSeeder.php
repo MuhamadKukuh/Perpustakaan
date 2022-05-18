@@ -62,7 +62,7 @@ class DatabaseSeeder extends Seeder
             'email'     => 'shiro@gmail.com',
             'password'  => Hash::make('password'),
             'nis'       => '20211055',
-            'id_role'   => '2'
+            'id_role'   => '1'
         ]);
 
         for($i = 1; $i <= 10; $i++){
