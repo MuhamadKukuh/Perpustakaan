@@ -146,8 +146,20 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body p-0">
+              @if ($onlineUsers->count() == null || 0)
+              <div class="d-flex justify-content-center mt-5">
+                <div class="loader-anim">
+                  <div class="ball"></div>
+                  <span>Tidak ada user yang login</span>
+                </div>
+              </div> 
+              @endif
+              
               <ul class="users-list clearfix">
+                
                 @foreach ($onlineUsers as $onlineUser)
+                @if($onlineUsers->count() == null)
+                @endif
                 <li>
                   @if ($onlineUser->id_gender == 1)
                   <img src="dist/img/user2-160x160.jpg" alt="User Image">
