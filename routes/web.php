@@ -7,6 +7,7 @@ use App\Http\Controllers\authController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\booksController;
+use App\Http\Controllers\Tripay\RequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,7 @@ Route::group(['middleware'  => 'guest'], function(){
     Route::get('/register', [authController::class, 'registerForm']);
     Route::post('/login', [authController::class, 'login']);
     Route::post('/register', [authController::class, 'register']);
+    Route::get('/try', [authController::class, 'Request']);
 });
 
 Route::post('/borrow/{id}', [booksController::class, 'borrow']);
@@ -65,8 +67,10 @@ Route::group(['middleware' => 'auth'], function(){
 
     // Post
     Route::post('/update-profile/{id}', [userController::class, 'update']);
-    
+    Route::get('/Book-list/{bookshelf:nameBookshelf}', [userController::class, 'showBook']);
+    Route::get('/favoriteBook', [userController::class, 'showFavorite']);
 });
+
 
 
 

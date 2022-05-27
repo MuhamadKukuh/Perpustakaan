@@ -25,10 +25,12 @@ class booksController extends Controller
 
         $books = book::join('bookshelves', 'bookshelves.id_bookshelf', '=', 'books.id_bookshelf')
         ->join('categories', 'categories.id_category', '=', 'books.id_category')->orderBy('books.updated_at', 'DESC')->get();
+        $bookshelf = bookshelf::all();
+
         
         $title = 'Books';
 
-        return view('Dashboard.books', compact('books', 'title', 'no'));
+        return view('Dashboard.books', compact('books', 'title', 'no', 'bookshelf'));
     }
 
     /**

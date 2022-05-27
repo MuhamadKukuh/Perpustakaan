@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\book;    
 use App\Models\favorite;
 use App\Models\view;    
+use App\Models\bookshelf;
 use Illuminate\Http\Request;
 
 class userController extends Controller
@@ -20,8 +21,12 @@ class userController extends Controller
         $fictions = book::where('id_category', 1)->orderBy('updated_at', 'DESC')->get();
         $nonFictions = book::where('id_category', 2)->orderBy('updated_at', 'DESC')->get();
         $title = 'Home';
+        $bookshelf = bookshelf::all();
+        $crousel = book::orderBy('created_at', 'DESC')->limit(3)->get();
+        $crouselNo = $crousel->first();
+        $no = 0;
 
-        return view('Home.home', compact('fictions', 'nonFictions', 'title'));
+        return view('Home.home', compact('fictions', 'nonFictions', 'title', 'bookshelf', 'crousel', 'no', 'crouselNo'));
     }
 
     /**
@@ -121,9 +126,37 @@ class userController extends Controller
         $recomendations = book::orderBy('created_at', 'DESC')->limit(4)->get();
 
         $favorite = favorite::where('id_user', Auth()->User()->id)->where('id_book', $id)->first();
+        $bookshelf = bookshelf::all();
 
 
-        return view('Home.book', compact('book', 'title', 'viewer', 'recomendations', 'favorite'));
 
+        return view('Home.book', compact('book', 'title', 'viewer', 'recomendations', 'favorite', 'bookshelf'));
+
+    }
+
+    public function showBook($name){
+
+        $data = bookshelf::where('nameBookshelf', $name)->first();
+
+        $fictions = book::where('id_category', 1)->where('id_bookshelf', $data->id_bookshelf)->orderBy('updated_at', 'DESC')->get();
+        $nonFictions = book::where('id_category', 2)->where('id_bookshelf', $data->id_bookshelf)->orderBy('updated_at', 'DESC')->get();
+        $title = $name;
+        // @dd($name);
+        $bookshelf = bookshelf::all();
+        return view('Home.books', compact('bookshelf', 'title', 'fictions', 'nonFictions' ));
+    }
+
+    public function showFavorite(){
+
+        // $data = bookshelf::where('nameBookshelf', $name)->first();
+
+        $bookFavorite = favorite::where('id_user', Auth()->User()->id)->get();
+
+        // $fictions = book::where('id_category', 1)->where('id_bookshelf', $data->id_bookshelf)->orderBy('updated_at', 'DESC')->get();
+        // $nonFictions = book::where('id_category', 2)->where('id_bookshelf', $data->id_bookshelf)->orderBy('updated_at', 'DESC')->get();
+        $title = 'Favorite Book';
+        // @dd($name);
+        $bookshelf = bookshelf::all();
+        return view('Home.favorite', compact('bookshelf', 'title', 'bookFavorite' ));
     }
 }

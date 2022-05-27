@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\book;
+use App\Models\bookshelf;
 use App\Models\User;
 use App\Models\history;
 use App\Models\favorite;
@@ -29,7 +30,8 @@ class adminController extends Controller
             'borrowed'      => transaction::orderBy('updated_at', 'DESC')->get(),
             'students'      => User::Where('id_role', 2)->get(),
             'book'          => book::all(),
-            'return'        => transaction::where('status', 1)->get()
+            'return'        => transaction::where('status', 1)->get(),
+            'bookshelf'     => bookshelf::all()
         ]);
     }
 
@@ -109,9 +111,10 @@ class adminController extends Controller
         $histories = history::where('id_user', $user->id)->orderBy('created_at', 'DESC')->get();
         $activities = history::where('id_user', $user->id)->where('status', 0)->get();
         $borrow = transaction::where('id_user', $user->id)->where('status', 1)->get();
+        $bookshelf = bookshelf::all();
         // @dd($histories);
         
-        return view('profile', compact('siswa', 'title', 'favorite', 'histories', 'activities', 'borrow'));
+        return view('profile', compact('siswa', 'title', 'favorite', 'histories', 'activities', 'borrow', 'bookshelf'));
     }
 
     public function studentslist(){
@@ -124,8 +127,10 @@ class adminController extends Controller
         $title    = 'Students';
 
         $no       = 1;
+        $bookshelf = bookshelf::all();
 
-        return view('Dashboard.students', compact('students', 'title', 'no'));
+
+        return view('Dashboard.students', compact('students', 'title', 'no', 'bookshelf'));
     }
 
 
@@ -134,8 +139,10 @@ class adminController extends Controller
         $confirmation = transaction::where('status', 0)->orderBy('created_at', 'DESC')->get();
         // $confirmationReturn = transaction::where('status', 1)->get();
         $no = 1;
+        $bookshelf = bookshelf::all();
 
-        return view('Dashboard.message', compact('title', 'no', 'confirmation'));
+
+        return view('Dashboard.message', compact('title', 'no', 'confirmation', 'bookshelf'));
     }
 
     public function confirm($id){
@@ -198,8 +205,10 @@ class adminController extends Controller
         $title = "Return";
         $data  = transaction::orderBy('created_at', 'DESC')->get();
         $no    = 1;
+        $bookshelf = bookshelf::all();
 
-        return view('Dashboard.return', compact('title', 'data', 'no'));
+
+        return view('Dashboard.return', compact('title', 'data', 'no', 'bookshelf'));
     }
 
     public function returnBook1($id){

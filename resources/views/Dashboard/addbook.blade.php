@@ -79,7 +79,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Genre</label>
-                            <input type="Text" class="form-control" placeholder="Genre" name="genre" value="{{ old('total') }}">
+                            <input type="Text" class="form-control" placeholder="Genre" name="genre" value="{{ old('genre') }}">
                         </div>
                     </div>
                     <div class="col-4">

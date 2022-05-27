@@ -1,114 +1,69 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Paginationjs example</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link href="/paginate/style.css" rel="stylesheet" type="text/css">
-    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <style type="text/css">
-        ul, li {
-            list-style: none;
-        }
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        #wrapper {
-            width: 900px;
-            margin: 20px auto;
-        }
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-        .data-container {
-            margin-top: 20px;
-        }
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+              </li>
+            </ul>
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
 
-        .data-container ul {
-            padding: 0;
-            margin: 0;
-        }
+      @foreach ($response as $r)
+      <div class="card">
+          <div class="card-body">
+            <a href=""></a>
+            <img src="{{ $r->icon_url }}" alt="">
+            <p>{{ $r->name }}</p>
 
-        .data-container li {
-            margin-bottom: 5px;
-            padding: 5px 10px;
-            background: #eee;
-            color: #666;
-        }
-    </style>
-</head>
-<body>
-    <input type="text" class="search">
-    <div id="wrapper">
-        <section>
-            <div class="data-container row">
-                @foreach ($books as $book)
-                <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">{{ $book->bookTitle }}</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-            <div id="pagination-demo1" class="d-flex justify-content-center"></div>
-        </section>
-        
-    </div>
-    
-        <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
-        <script src="/paginate/paginate.js"></script>
-        <script>
-        $(function() {
-        (function(name) {
-            var container = $('#pagination-' + name);
-            var sources = function () {
-            var result = [{{ $books->count() }}];
-    
-            for (var i = 1; i <= {{ $books->count() }}; i++) {
-                result.push(i); 
-            }
-    
-            return result;
-            }();
-    
-            var options = {
-            dataSource: sources,
-            callback: function (response, pagination) {
-                window.console && console.log(response, pagination);
-    
-                var dataHtml = '';
-    
-                $.each(response, function (index, item) {
-                dataHtml += '<div class="card col-6 results" style="width: 18rem;"> <img src="..." class="card-img-top" alt="..."> <div class="card-body"><h5 class="card-item"><p class="card-title">{{ $book->bookTitle }}</p></div>'+'</div>';
-                });
-    
-                dataHtml += '';
-    
-                container.prev().html(dataHtml);
-            }
-            };
-    
-            //$.pagination(container, options);
-    
-            container.addHook('beforeInit', function () {
-            window.console && console.log('beforeInit...');
-            });
-            container.pagination(options);
-    
-            container.addHook('beforePageOnClick', function () {
-            window.console && console.log('beforePageOnClick...');
-            //return false
-            });
-        })('demo1');
-        })
+            <p class="text-dark">{{ $r->fee_merchant->flat }} + </p>
+            
+        </div>
+      </div>
+      @endforeach
 
-                $(document).ready(function(){
-        $('.search').on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $(".results").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-        });
-        });
-        </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-</body>
+  </body>
 </html>

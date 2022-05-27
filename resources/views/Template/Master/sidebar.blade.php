@@ -77,28 +77,42 @@
             </ul>
           </li>
           @else
+          <li class="nav-item mt-3 mb-3">
+            <a href="/home" class="nav-link {{ $title !== 'Home' ? 'none' : 'active' }}">
+              <i class="nav-icon fas fa-home"></i>
+              <p>
+                Home
+                <span class="right badge badge-danger"></span>
+              </p>
+            </a>
+          </li>
           <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Book
+                Books
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
+              @foreach ($bookshelf as $shelf)
               <li class="nav-item">
-                <a href="/home" class="nav-link {{ $title !== 'Home' ? 'none' : 'active' }}">
+                <a href="/Book-list/{{ $shelf->nameBookshelf }}" class="nav-link {{ $title !== $shelf->nameBookshelf ? 'none' : 'active' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Books</p>
+                  <p>{{ $shelf->nameBookshelf }}</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="/profile/{{ Auth()->User()->username }}" class="nav-link {{ $title !== 'Profile' ? 'none' : 'active' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Profile</p>
-                </a>
-              </li>
+              @endforeach
             </ul>
+          </li>
+          <li class="nav-item mt-3 mb-3">
+            <a href="/favoriteBook" class="nav-link {{ $title !== 'Favorite Book' ? 'none' : 'active' }}">
+              <i class="nav-icon fa-solid fa-bookmark"></i>
+              <p>
+                Favorite Books 
+                <span class="right badge badge-danger"></span>
+              </p>
+            </a>
           </li>
           @endif
           <li class="nav-header"></li>
