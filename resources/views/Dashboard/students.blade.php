@@ -37,7 +37,7 @@
           <td>{{ $student->gender }}</td>
           <td>{{ $student->kelas }}</td>
           <td class="text-center">
-              <a href="/deleteStudent/{{ $student->id }}" class="text-decoration-none text-white"><i class="fa-solid fa-delete-left"></i></a>
+              <a href="#" data-id="{{ $student->id }}" class="swal-confirmation text-decoration-none text-white"><i class="fa-solid fa-delete-left"></i></a>
           </td>
         </tr>
         @endforeach
@@ -46,4 +46,48 @@
     </div>
     <!-- /.card-body -->
   </div> 
+  <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    $('.swal-confirmation').click(function(){
+      const id = $(this).attr('data-id')
+
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+
+      swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          swalWithBootstrapButtons.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+            )
+          window.location = "/deleteUser/"+ id +""
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelled',
+            'Your imaginary file is safe :)',
+            'error'
+          )
+        }
+      })
+    });
+  
+  </script>
 @endsection

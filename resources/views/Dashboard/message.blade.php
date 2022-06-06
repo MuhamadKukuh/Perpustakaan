@@ -2,7 +2,7 @@
 @section('mainContent')
   <div class="card">
     <div class="card-header">
-      <h3 class="card-title">Message | <a href="/destroyAll" class="text-decoration-none text-white" style="font-size: 10px">clear all</a></h3>
+      <h3 class="card-title">Message | <a href="#" class="swal-confirmation text-decoration-none text-white" style="font-size: 10px">clear all</a></h3>
     </div>
     @if (session()->has('success'))
     <div class="alert alert-success alert-dismissible">
@@ -37,7 +37,7 @@
           <td class="text-center">
               <a href="/confirm/{{ $confirm->id_transaction }}" class="btn btn-primary">Confirm</a>
               |
-              <a href="/deleteconfirm/{{ $confirm->id_transaction }}" class="btn btn-danger">delete</a>
+              <a href="#" data-id="{{ $confirm->id_transaction }}" class="swal-confirmation btn btn-danger">delete</a>
           </td>
         </tr>
         @endforeach
@@ -46,4 +46,54 @@
     </div>
     <!-- /.card-body -->
   </div> 
+
+  <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    $('.swal-confirmation').click(function(){
+      const id = $(this).attr('data-id')
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+
+      swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          
+          swalWithBootstrapButtons.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
+
+          if(id != null){
+            window.location = "/deleteconfirm/"+ id +""
+          }else{
+            window.location = "/destroyAll"
+          }
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelled',
+            'Your imaginary file is safe :)',
+            'error'
+          )
+        }
+      })
+    });
+  
+  </script>
 @endsection

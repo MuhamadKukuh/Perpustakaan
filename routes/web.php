@@ -37,7 +37,7 @@ Route::post('/borrow/{id}', [booksController::class, 'borrow']);
 
 Route::group(['middleware' => 'auth'], function(){
 
-    Route::group(['middleware' => 'admin'], function(){
+Route::group(['middleware' => 'admin'], function(){
         Route::get('/books', [booksController::class, 'index']);
         Route::get('/students', [adminController::class, 'studentslist']);
         Route::get('/dashboard', [adminController::class, 'index']);
@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/destroyAll', [adminController::class, 'destroyAll']);
         Route::get('/return', [adminController::class, 'returnBook']);
         Route::get('/returnBook/{id}', [adminController::class, 'returnBook1']);
+        Route::get('/deleteUser/{id}', [adminController::class, 'destroy']);
 
         Route::post('/uploadbook', [booksController::class, 'store']);
         Route::post('/updatebook/{id}', [booksController::class, 'update']);

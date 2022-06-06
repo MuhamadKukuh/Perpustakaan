@@ -2,7 +2,7 @@
 @section('mainContent')
 <div class="card">
     <div class="card-header">
-      <h3 class="card-title">Books Data | <a href="/addbook" class="text-decoration-none text-white" style="font-size: 10px">Add Book</a></h3>
+      <h3 class="card-title">Books Data | <a href="/addbook" class="btn btn-primary text-decoration-none text-white" style="font-size: 10px">Add Book</a></h3>
     </div>
     @if (session()->has('success'))
     <div class="alert alert-success alert-dismissible">
@@ -35,9 +35,9 @@
           <td>{{ $book->category }}</td>
           <td>{{ $book->nameBookshelf }}</td>
           <td class="text-center">
-              <a href="/editbook/{{ $book->id_books }}" class="text-decoration-none text-white"><i class="fa-solid fa-pen-to-square"></i></a>
+              <a href="/editbook/{{ $book->id_books }}"  class="text-decoration-none text-white"><i class="fa-solid fa-pen-to-square"></i></a>
               |
-              <a href="/delete/{{ $book->id_books }}" class="text-decoration-none text-white"><i class="fa-solid fa-delete-left"></i></a>
+              <a href="#" data-id="{{ $book->id_books }}" id="deleteData" class="swal-confirmation text-decoration-none text-white"><i class="fa-solid fa-delete-left"></i></a>
           </td>
         </tr>
         @endforeach
@@ -46,4 +46,51 @@
     </div>
     <!-- /.card-body -->
   </div> 
+
+  {{-- Js sementara --}}
+  <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    $('.swal-confirmation').click(function(){
+      const id = $(this).attr('data-id')
+
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+
+      swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          swalWithBootstrapButtons.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+            )
+            window.location = "/delete/"+ id +""
+          } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelled',
+            'Your imaginary file is safe :)',
+            'error'
+          )
+        }
+      })
+    });
+  
+  </script>
+  
 @endsection

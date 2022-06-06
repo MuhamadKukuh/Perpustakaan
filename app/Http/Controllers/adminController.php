@@ -98,7 +98,8 @@ class adminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::destroy($id);
+        return back()->with('success', "Berhasil menghapus user");
     }
 
     public function profile(User $user){

@@ -65,13 +65,13 @@ class DatabaseSeeder extends Seeder
             'id_role'   => '1'
         ]);
 
-        for($i = 1; $i <= 10; $i++){
+        for($i = 1; $i <= 3; $i++){
             book::create([
                 'bookTitle' => 'Kamisato Art',
                 'id_category' => 1,
                 'id_kelas'    => 0,
                 'genre'    => "Slice Of Life, Comedy",
-                'id_bookshelf'=> 3,
+                'id_bookshelf'=> 1,
                 'bookTotal'   => 10,
                 'tax'         => 2000,
                 'bookImage'   => 'gambar.jpg',
@@ -79,13 +79,41 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        for($i = 1; $i <= 10; $i++){
+        for($i = 1; $i <= 3; $i++){
             book::create([
                 'bookTitle' => 'No game no Life',
                 'id_category' => 2,
                 'id_kelas'    => 1,
                 'genre'    => "Action, Romance, Comedy, Drama",
+                'id_bookshelf'=> 1,
+                'bookTotal'   => 10,
+                'tax'         => 2000,
+                'bookImage'   => '1649856044.png',
+                'fine'        => 100000   
+            ]);
+        }
+
+        for($i = 1; $i <= 3; $i++){
+            book::create([
+                'bookTitle' => 'No game no Life',
+                'id_category' => 1,
+                'id_kelas'    => 1,
+                'genre'    => "Action, Romance, Comedy, Drama",
                 'id_bookshelf'=> 3,
+                'bookTotal'   => 10,
+                'tax'         => 2000,
+                'bookImage'   => '1649856044.png',
+                'fine'        => 100000   
+            ]);
+        }
+
+        for($i = 1; $i <= 3; $i++){
+            book::create([
+                'bookTitle' => 'No game no Life',
+                'id_category' => 2,
+                'id_kelas'    => 1,
+                'genre'    => "Action, Romance, Comedy, Drama",
+                'id_bookshelf'=> 2,
                 'bookTotal'   => 10,
                 'tax'         => 2000,
                 'bookImage'   => '1649856044.png',
